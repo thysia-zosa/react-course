@@ -1,0 +1,11 @@
+.tile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.tile h1,
+.tile h2,
+.tile p {
+  margin: 0;
+}
