@@ -1,9 +1,10 @@
+import Card from "./Card";
 import ExpenseItem from "./ExpenseItem";
 import "./ExpenseList.css";
 
 function ExpenseList({ expenses }) {
   return (
-    <div className="expense-list">
+    <Card className="expense-list">
       {expenses.map((item, index) => {
         return (
           <ExpenseItem
@@ -14,7 +15,7 @@ function ExpenseList({ expenses }) {
           />
         );
       })}
-    </div>
+    </Card>
   );
 }
 
