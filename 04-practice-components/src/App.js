@@ -36,13 +36,6 @@ function App() {
         description="Selected key React concepts you should know about"
       />
       <ConceptList concepts={concepts} />
-      {/* <ul id="concepts">
-        <li className="concept">
-          <img src="TODO: IMAGE" alt="TODO: TITLE" />
-          <h2>TODO: TITLE</h2>
-          <p>TODO: DESCRIPTION</p>
-        </li>
-      </ul> */}
     </div>
   );
 }

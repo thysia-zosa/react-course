@@ -3,11 +3,14 @@ import "./ConceptTile.css";
 
 function ConceptTile({ image, title, description }) {
   return (
-    <li className="concept-tile">
-      <img src={image} alt={title} />
+    <Tile
+      className='concept-tile'
+      imgSrc={image}
+      imgAlt={title}
+      description={description}
+    >
       <h2>{title}</h2>
-      <p>{description}</p>
-    </li>
+    </Tile>
   );
 }
 

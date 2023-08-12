@@ -3,11 +3,14 @@ import "./Header.css";
 
 function Header({ imgSrc, imgAlt, title, description }) {
   return (
-    <header>
-      <img src={imgSrc} alt={imgAlt} />
+    <Tile
+      className="header"
+      imgSrc={imgSrc}
+      imgAlt={imgAlt}
+      description={description}
+    >
       <h1>{title}</h1>
-      <p>{description}</p>
-    </header>
+    </Tile>
   );
 }
 
