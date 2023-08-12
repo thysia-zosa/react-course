@@ -1,5 +1,8 @@
 .concept-tile {
+  display: flex;
+  flex-direction: column;
   justify-content: flex-start;
+  align-items: center;
   gap: 1rem;
   background: linear-gradient(#250358, #440c66);
   padding: 1.5rem;
@@ -22,11 +25,13 @@
 }
 
 .concept-tile h2 {
+  margin: 0;
   font-size: 1rem;
   text-transform: uppercase;
 }
 
 .concept-tile p {
+  margin: 0;
   text-align: center;
   font-size: 0.85rem;
 }

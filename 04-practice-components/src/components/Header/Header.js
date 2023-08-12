@@ -4,14 +4,9 @@ import "./Header.css";
 function Header({ imgSrc, imgAlt, title, description }) {
   return (
     <header>
-      <Tile
-        className="header"
-        imgSrc={imgSrc}
-        imgAlt={imgAlt}
-        description={description}
-      >
-        <h1>{title}</h1>
-      </Tile>
+      <img src={imgSrc} alt={imgAlt} />
+      <h1>{title}</h1>
+      <p>{description}</p>
     </header>
   );
 }
