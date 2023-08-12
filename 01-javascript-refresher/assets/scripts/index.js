@@ -1,0 +1,1 @@
+document.body.addEventListener('click', function (this) {console.log(this)});
