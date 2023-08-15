@@ -1,6 +1,6 @@
 import "./ExpensesFilter.css";
 
-function ExpensesFilter({ filteredYear, filterCallback }) {
+const ExpensesFilter = ({ filteredYear, filterCallback }) => {
   function selectChangeHandler(event) {
     filterCallback(parseInt(event.target.value));
   }
@@ -16,12 +16,14 @@ function ExpensesFilter({ filteredYear, filterCallback }) {
         <label>Filter by year</label>
         <select value={filteredYear} onChange={selectChangeHandler}>
           {years.map((year) => (
-            <option key={year} value={year}>{year}</option>
+            <option key={year} value={year}>
+              {year}
+            </option>
           ))}
         </select>
       </div>
     </div>
   );
-}
+};
 
 export default ExpensesFilter;

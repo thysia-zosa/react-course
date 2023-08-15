@@ -4,7 +4,7 @@ import ExpensesFilter from "../ExpenseFilter/ExpensesFilter";
 import ExpensesList from "./ExpensesList";
 import Card from "../UI/Card";
 
-function ExpensesOverview({ expenses }) {
+const ExpensesOverview = ({ expenses }) => {
   const [filteredYear, setFilteredYear] = useState(new Date().getFullYear());
 
   function filterCallback(year) {
@@ -24,6 +24,6 @@ function ExpensesOverview({ expenses }) {
       <ExpensesList filteredExpenses={filteredExpenses} />
     </Card>
   );
-}
+};
 
 export default ExpensesOverview;

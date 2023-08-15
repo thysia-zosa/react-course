@@ -24,14 +24,15 @@ const DUMMY_EXPENSES = [
   },
 ];
 
-function App() {
+const App = () => {
   const [expenses, setExpenses] = useState(DUMMY_EXPENSES);
 
   function addNewExpense(newExpense) {
-    setExpenses((prevExpenses)=> {
-      const newId = parseInt(prevExpenses[prevExpenses.length - 1].id.substring(1)) + 1;
-      return [...prevExpenses, {id: `e${newId}`, ...newExpense}];
-    })
+    setExpenses((prevExpenses) => {
+      const newId =
+        parseInt(prevExpenses[prevExpenses.length - 1].id.substring(1)) + 1;
+      return [...prevExpenses, { id: `e${newId}`, ...newExpense }];
+    });
   }
 
   return (
@@ -40,6 +41,6 @@ function App() {
       <ExpensesOverview expenses={expenses} />
     </div>
   );
-}
+};
 
 export default App;

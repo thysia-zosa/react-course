@@ -1,7 +1,7 @@
 import { useState } from "react";
 import "./ExpenseForm.css";
 
-function ExpenseForm({submitCallback}) {
+const ExpenseForm = ({ submitCallback }) => {
   const maxDate = `${new Date().getFullYear()}-12-31`;
   const [enteredTitle, setEnteredTitle] = useState("");
   const [enteredAmount, setEnteredAmount] = useState("");
@@ -113,6 +113,6 @@ function ExpenseForm({submitCallback}) {
       </div>
     </form>
   );
-}
+};
 
 export default ExpenseForm;
