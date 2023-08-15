@@ -2,6 +2,7 @@ import { useState } from "react";
 import "./ExpenseForm.css";
 
 function ExpenseForm({submitCallback}) {
+  const maxDate = `${new Date().getFullYear()}-12-31`;
   const [enteredTitle, setEnteredTitle] = useState("");
   const [enteredAmount, setEnteredAmount] = useState("");
   const [enteredDate, setEnteredDate] = useState("");
@@ -100,7 +101,7 @@ function ExpenseForm({submitCallback}) {
             name="date"
             type="date"
             min="2019-01-01"
-            max="2022-12-31"
+            max={maxDate}
             // onChange={dateChangeHandler}
             onChange={(event) => inputChangeHandler("date", event.target.value)}
             value={enteredDate}

@@ -5,15 +5,19 @@ function ExpensesFilter({ filteredYear, filterCallback }) {
     filterCallback(parseInt(event.target.value));
   }
 
+  const years = [];
+  for (let year = new Date().getFullYear(); year >= 2019; year--) {
+    years.push(year);
+  }
+
   return (
     <div className="expenses-filter">
       <div className="expenses-filter__control">
         <label>Filter by year</label>
         <select value={filteredYear} onChange={selectChangeHandler}>
-          <option value="2022">2022</option>
-          <option value="2021">2021</option>
-          <option value="2020">2020</option>
-          <option value="2019">2019</option>
+          {years.map((year) => (
+            <option key={year} value={year}>{year}</option>
+          ))}
         </select>
       </div>
     </div>
