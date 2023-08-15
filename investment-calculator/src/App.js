@@ -1,5 +1,4 @@
 import { useState } from "react";
-import logo from "./assets/investment-calculator-logo.png";
 import Header from "./components/Header/Header";
 import Form from "./components/InvestmentForm/Form";
 import Table from "./components/InvestmentTable/Table";
@@ -45,7 +44,7 @@ const App = () => {
 
   return (
     <div>
-      <Header logo={logo} />
+      <Header />
 
       <Form submitCallback={calculateHandler} />
       {/* <form className="form">
