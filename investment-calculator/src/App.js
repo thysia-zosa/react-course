@@ -1,4 +1,7 @@
 import logo from './assets/investment-calculator-logo.png';
+import Header from "./components/Header/Header";
+import Form from './components/InvestmentForm/Form';
+import Table from './components/InvestmentTable/Table';
 
 function App() {
   const calculateHandler = (userInput) => {
@@ -30,12 +33,10 @@ function App() {
 
   return (
     <div>
-      <header className="header">
-        <img src={logo} alt="logo" />
-        <h1>Investment Calculator</h1>
-      </header>
+      <Header logo={logo} />
 
-      <form className="form">
+      <Form />
+      {/* <form className="form">
         <div className="input-group">
           <p>
             <label htmlFor="current-savings">Current Savings ($)</label>
@@ -66,12 +67,13 @@ function App() {
             Calculate
           </button>
         </p>
-      </form>
+      </form> */}
 
       {/* Todo: Show below table conditionally (only once result data is available) */}
       {/* Show fallback text if no data is available */}
 
-      <table className="result">
+      <Table />
+      {/* <table className="result">
         <thead>
           <tr>
             <th>Year</th>
@@ -90,7 +92,7 @@ function App() {
             <td>TOTAL INVESTED CAPITAL</td>
           </tr>
         </tbody>
-      </table>
+      </table> */}
     </div>
   );
 }
