@@ -58,8 +58,11 @@ const ExpenseForm = ({ submitCallback, dismissCallback }) => {
 
   function submitHandler(event) {
     event.preventDefault();
-    const formData = Object.fromEntries(new FormData(event.target).entries());
-    formData.date = new Date(formData.date);
+    const formData = {
+      title: enteredTitle,
+      amount: +enteredAmount,
+      date: new Date(enteredDate),
+    };
     submitCallback(formData);
     // setEnteredTitle("");
     // setEnteredAmount("");
@@ -110,7 +113,9 @@ const ExpenseForm = ({ submitCallback, dismissCallback }) => {
         </div>
       </div>
       <div className="new-expense__actions">
-        <button type="button" onClick={dismissCallback}>Cancel</button>
+        <button type="button" onClick={dismissCallback}>
+          Cancel
+        </button>
         <button type="submit">Add Expense</button>
       </div>
     </form>

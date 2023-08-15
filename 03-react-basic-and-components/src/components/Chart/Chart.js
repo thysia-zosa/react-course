@@ -32,7 +32,7 @@ const Chart = ({ filteredExpenses }) => {
         <ChartBar
           key={month.label}
           label={month.label}
-          fill={((100 * month.amount) / sum).toFixed()}
+          fill={Math.round((100 * month.amount) / sum)}
         />
       ))}
     </div>
