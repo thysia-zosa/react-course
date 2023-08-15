@@ -3,6 +3,7 @@ import "./ExpensesOverview.css";
 import ExpensesFilter from "../ExpenseFilter/ExpensesFilter";
 import ExpensesList from "./ExpensesList";
 import Card from "../UI/Card";
+import Chart from "../Chart/Chart";
 
 const ExpensesOverview = ({ expenses }) => {
   const [filteredYear, setFilteredYear] = useState(new Date().getFullYear());
@@ -21,6 +22,7 @@ const ExpensesOverview = ({ expenses }) => {
         filteredYear={filteredYear}
         filterCallback={filterCallback}
       />
+      <Chart filteredExpenses={filteredExpenses} />
       <ExpensesList filteredExpenses={filteredExpenses} />
     </Card>
   );
