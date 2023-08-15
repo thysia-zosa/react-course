@@ -1,8 +1,7 @@
 import "./ChartBar.css";
 
 const ChartBar = ({ label, fill }) => {
-  const heightStyle = { style: `${fill.toFixed()}%` };
-  console.log(label,fill)
+  const heightStyle = { height: `${fill}%` };
 
   return (
     <div className="chart-bar">

@@ -1,4 +1,3 @@
-import Card from "../UI/Card";
 import "./Chart.css";
 import ChartBar from "./ChartBar";
 
@@ -22,14 +21,21 @@ const Chart = ({ filteredExpenses }) => {
     months[expense.date.getMonth()].amount += expense.amount;
   });
 
-  const sum = months.reduce((a, b) => a + b.amount, 0);
+  const sum =
+    filteredExpenses.length === 0
+      ? 1
+      : months.reduce((a, b) => a + b.amount, 0);
 
   return (
-    <Card className="chart">
+    <div className="chart">
       {months.map((month) => (
-        <ChartBar label={month.label} fill={(100 * month.amount) / sum} />
+        <ChartBar
+          key={month.label}
+          label={month.label}
+          fill={((100 * month.amount) / sum).toFixed()}
+        />
       ))}
-    </Card>
+    </div>
   );
 };
 
