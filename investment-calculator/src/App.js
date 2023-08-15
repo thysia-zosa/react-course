@@ -84,7 +84,11 @@ const App = () => {
       {/* Todo: Show below table conditionally (only once result data is available) */}
       {/* Show fallback text if no data is available */}
 
-      <Table yearlyData={yearlyData} />
+      {yearlyData.length === 0 ? (
+        <h2>Calculate new Investment Table</h2>
+      ) : (
+        <Table yearlyData={yearlyData} />
+      )}
       {/* <table className="result">
         <thead>
           <tr>
