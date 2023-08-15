@@ -6,7 +6,7 @@ const Table = ({yearlyData}) => {
   return (
     <table className={styles.result}>
       <TableHead />
-      <TableBody yearlyData={[]} />
+      <TableBody yearlyData={yearlyData} />
     </table>
   )
 }

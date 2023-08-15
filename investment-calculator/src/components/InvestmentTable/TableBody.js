@@ -5,6 +5,7 @@ const TableBody = ({ yearlyData }) => {
     <tbody>
       {yearlyData.map((year) => (
         <TableBodyRow
+          key={year.yearNumber}
           year={year.yearNumber}
           savings={year.savings}
           interest={year.interest}

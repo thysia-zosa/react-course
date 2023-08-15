@@ -10,25 +10,35 @@ const App = () => {
     // Should be triggered when form is submitted
     // You might not directly want to bind it to the submit event on the form though...
 
-    const yearlyData = []; // per-year results
+    const newYearlyData = []; // per-year results
 
-    let currentSavings = +userInput["current-savings"]; // feel free to change the shape of this input object!
-    const yearlyContribution = +userInput["yearly-contribution"]; // as mentioned: feel free to change the shape...
-    const expectedReturn = +userInput["expected-return"] / 100;
-    const duration = +userInput["duration"];
+    let currentSavings = userInput.currentSavings; // feel free to change the shape of this input object!
+    // const yearlyContribution = +userInput["yearly-contribution"]; // as mentioned: feel free to change the shape...
+    // const expectedReturn = +userInput["expected-return"] / 100;
+    // const duration = +userInput["duration"];
+    let totalInterest = 0;
+    let totalCapital = userInput.currentSavings;
 
     // The below code calculates yearly results (total savings, interest etc)
-    for (let i = 0; i < duration; i++) {
-      const yearlyInterest = currentSavings * expectedReturn;
-      currentSavings += yearlyInterest + yearlyContribution;
-      yearlyData.push({
+    for (let i = 0; i < userInput.duration; i++) {
+      const yearlyInterest = currentSavings * userInput.expectedReturn;
+      currentSavings += yearlyInterest + userInput.yearlyContribution;
+      totalInterest += yearlyInterest;
+      totalCapital += userInput.yearlyContribution;
+      newYearlyData.push({
         // feel free to change the shape of the data pushed to the array!
-        year: i + 1,
-        yearlyInterest: yearlyInterest,
-        savingsEndOfYear: currentSavings,
-        yearlyContribution: yearlyContribution,
+        yearNumber: i + 1,
+        savings: parseFloat(currentSavings.toFixed(2)).toLocaleString(),
+        interest: parseFloat(yearlyInterest.toFixed(2)).toLocaleString(),
+        totalInterest: parseFloat(totalInterest.toFixed(2)).toLocaleString(),
+        totalCapital: parseFloat(totalCapital.toFixed(2)).toLocaleString(),
+        // year: i + 1,
+        // yearlyInterest: yearlyInterest,
+        // savingsEndOfYear: userInput.currentSavings,
+        // yearlyContribution: userInput.yearlyContribution,
       });
     }
+    setYearlyData(newYearlyData);
 
     // do something with yearlyData ...
   }

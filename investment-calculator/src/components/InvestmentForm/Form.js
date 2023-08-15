@@ -5,29 +5,20 @@ import FormInput from "./FormInput";
 import FormInputGroup from "./FormInputGroup";
 
 const Form = ({ submitCallback }) => {
-  const [currentSavings, setCurrentSavings] = useState(0);
-  const [yearlyContribution, setYearlyContribution] = useState(0);
-  const [expectedReturn, setExpectedReturn] = useState(0);
+  const [currentSavings, setCurrentSavings] = useState(0.0);
+  const [yearlyContribution, setYearlyContribution] = useState(0.0);
+  const [expectedReturn, setExpectedReturn] = useState(0.0);
   const [duration, setDuration] = useState(1);
   const [isValidInput, setIsValidInput] = useState(true);
-  console.log(isValidInput);
 
   function inputChangeHandler(identifier, value) {
-    while(value.charAt[0]==='0') {
-      value=value.slice(1);
-    }
-    console.log(identifier, value);
     value = parseFloat(value);
     if (isNaN(value)) {
       value = null;
     }
-    // if (!/[0-9.]/.test(value.charAt(value.length - 1))) {
-    //   value = value.slice(0, -1);
-    // }
     switch (identifier) {
       case "currentSavings":
         return setCurrentSavings((prevCurrentSavings) => {
-          console.log(value, prevCurrentSavings);
           return value ?? prevCurrentSavings;
         });
       case "yearlyContribution":
@@ -43,18 +34,28 @@ const Form = ({ submitCallback }) => {
     }
   }
 
-  function durationChangeHandler(event) {
-    let newValue = Math.round(event.target.value);
-    if (isNaN(newValue)) {
-      newValue = 1;
+  function expectedReturnChangeHandler(event) {
+    let value = parseFloat(event.target.value).toFixed(2);
+    if (isNaN(value)) {
+      value = null;
     }
+    return setExpectedReturn(
+      value ?? ((prevExpectedReturn) => prevExpectedReturn)
+    );
+  }
+
+  function durationChangeHandler(event) {
+    let newValue = Math.round(parseFloat(event.target.value));
     if (newValue < 1) {
       newValue = 1;
     }
     if (newValue > 20) {
       newValue = 20;
     }
-    setDuration(newValue);
+    if (isNaN(newValue)) {
+      newValue = null;
+    }
+    setDuration(newValue ?? ((prevDuration) => prevDuration));
   }
 
   function onResetForm(event) {
@@ -67,27 +68,25 @@ const Form = ({ submitCallback }) => {
     const formData = {
       currentSavings: +currentSavings,
       yearlyContribution: +yearlyContribution,
-      expectedReturn: +expectedReturn,
-      duration: Math.round(+duration),
+      expectedReturn: +expectedReturn / 100,
+      duration: +duration,
     };
-    console.log(currentSavings, yearlyContribution, expectedReturn, duration);
-    if (
-      !Object.values(formData).every((value) => !isNaN(value)) ||
-      formData.duration < 1
-    ) {
-      console.log("notValid");
-      return setIsValidInput(false);
-    }
-    // formData.submitCallback(formData);
-    console.log("valid", formData);
+    // if (
+    //   !Object.values(formData).every((value) => !isNaN(value)) ||
+    //   formData.duration < 1
+    // ) {
+    //   return setIsValidInput(false);
+    // }
+    console.log(formData);
+    submitCallback(formData);
     clearInputs();
   }
 
   function clearInputs() {
-    setCurrentSavings("");
-    setYearlyContribution("");
-    setExpectedReturn("");
-    setDuration("");
+    setCurrentSavings(0.0);
+    setYearlyContribution(0.0);
+    setExpectedReturn(0.0);
+    setDuration(1);
     setIsValidInput(true);
   }
 
@@ -115,9 +114,7 @@ const Form = ({ submitCallback }) => {
         <FormInput
           label={"expectedReturn"}
           title={"Expected Interest (%, per year)"}
-          onChange={(event) =>
-            inputChangeHandler("expectedReturn", event.target.value)
-          }
+          onChange={expectedReturnChangeHandler}
           value={expectedReturn}
         />
         <FormInput
