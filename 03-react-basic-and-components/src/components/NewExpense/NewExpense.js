@@ -18,7 +18,7 @@ const NewExpense = ({ submitCallback }) => {
       {isShowingForm ? (
         <ExpenseForm
           submitCallback={submitCallback}
-          resetCallback={dismissForm}
+          dismissCallback={dismissForm}
         />
       ) : (
         <button onClick={showForm}>Add New Expense</button>

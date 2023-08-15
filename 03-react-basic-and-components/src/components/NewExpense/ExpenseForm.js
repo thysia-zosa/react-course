@@ -1,7 +1,7 @@
 import { useState } from "react";
 import "./ExpenseForm.css";
 
-const ExpenseForm = ({ submitCallback, resetCallback }) => {
+const ExpenseForm = ({ submitCallback, dismissCallback }) => {
   const maxDate = `${new Date().getFullYear()}-12-31`;
   const [enteredTitle, setEnteredTitle] = useState("");
   const [enteredAmount, setEnteredAmount] = useState("");
@@ -61,19 +61,14 @@ const ExpenseForm = ({ submitCallback, resetCallback }) => {
     const formData = Object.fromEntries(new FormData(event.target).entries());
     formData.date = new Date(formData.date);
     submitCallback(formData);
-    setEnteredTitle("");
-    setEnteredAmount("");
-    setEnteredDate("");
-    resetCallback();
-  }
-
-  function resetHandler(event) {
-    event.preventDefault();
-    resetCallback();
+    // setEnteredTitle("");
+    // setEnteredAmount("");
+    // setEnteredDate("");
+    dismissCallback();
   }
 
   return (
-    <form onSubmit={submitHandler} onReset={resetHandler}>
+    <form onSubmit={submitHandler}>
       <div className="new-expense__controls">
         <div className="new-expense__control">
           <label>Title</label>
@@ -115,7 +110,7 @@ const ExpenseForm = ({ submitCallback, resetCallback }) => {
         </div>
       </div>
       <div className="new-expense__actions">
-        <button type="reset">Cancel</button>
+        <button type="button" onClick={dismissCallback}>Cancel</button>
         <button type="submit">Add Expense</button>
       </div>
     </form>
