@@ -2,7 +2,7 @@ import styles from './Table.module.css';
 import TableBody from './TableBody';
 import TableHead from './TableHead';
 
-const Table = () => {
+const Table = ({yearlyData}) => {
   return (
     <table className={styles.result}>
       <TableHead />
