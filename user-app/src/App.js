@@ -4,7 +4,7 @@ import UserList from './components/users/UserList';
 import styles from './App.module.css';
 
 function App() {
-  const [userList, setUserList]=useState([]);
+  const [userList, setUserList]=useState([1]);
   return (
     <div className={styles.app}>
       <AddUserForm />
