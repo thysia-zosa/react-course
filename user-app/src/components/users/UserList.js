@@ -1,12 +1,14 @@
 import Card from "../UI/Card";
-import styles from "./UserList.module.css";
+import UserListItem from "./UserListItem";
 
-const UserList = () => {
+const UserList = ({ userData }) => {
   return (
     <Card>
-      <p className={styles.userListItem}>Max (31 years old)</p>
+      {userData.map((userEntry) => (
+        <UserListItem name={userEntry.userName} age={userEntry.userAge} />
+      ))}
     </Card>
-  )
+  );
 };
 
 export default UserList;
