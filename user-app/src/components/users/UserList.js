@@ -5,7 +5,7 @@ const UserList = ({ userData }) => {
   return (
     <Card>
       {userData.map((userEntry) => (
-        <UserListItem name={userEntry.userName} age={userEntry.userAge} />
+        <UserListItem key={userEntry.id} name={userEntry.userName} age={userEntry.userAge} />
       ))}
     </Card>
   );
