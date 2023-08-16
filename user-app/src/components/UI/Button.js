@@ -1,7 +1,15 @@
 import styles from "./Button.module.css";
 
-const Button = ({ type, className, title }) => {
-  return <button className={`${styles.button} ${className}`} type={type}>{title}</button>;
+const Button = ({ type, title, clickCallback }) => {
+  return (
+    <button
+      className={styles.button}
+      type={type}
+      onClick={clickCallback ? clickCallback : undefined}
+    >
+      {title}
+    </button>
+  );
 };
 
 export default Button;
