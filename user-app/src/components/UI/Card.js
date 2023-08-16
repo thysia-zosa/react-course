@@ -1,11 +1,7 @@
 import styles from "./Card.module.css";
 
-const Card = ({ children, className, onClick }) => {
-  return (
-    <div className={`${styles.card} ${className}`} onClick={onClick}>
-      {children}
-    </div>
-  );
+const Card = ({ children, className }) => {
+  return <div className={`${styles.card} ${className}`}>{children}</div>;
 };
 
 export default Card;
