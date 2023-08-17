@@ -1,32 +1,27 @@
-import { Fragment } from "react";
+import { Fragment, useContext } from "react";
 import styles from "./Navigation.module.css";
 import AuthContext from "../../contexts/auth-context";
 
-const Navigation = ({ onLogout }) => {
+const Navigation = () => {
+  const authContext = useContext(AuthContext);
   return (
-    <AuthContext.Consumer>
-      {(context) => {
-        return (
-          <nav className={styles.nav}>
-            <ul>
-              {context.isLoggedIn && (
-                <Fragment>
-                  <li>
-                    <a href="/">Users</a>
-                  </li>
-                  <li>
-                    <a href="/">Admin</a>
-                  </li>
-                  <li>
-                    <button onClick={onLogout}>Logout</button>
-                  </li>
-                </Fragment>
-              )}
-            </ul>
-          </nav>
-        );
-      }}
-    </AuthContext.Consumer>
+    <nav className={styles.nav}>
+      <ul>
+        {authContext.isLoggedIn && (
+          <Fragment>
+            <li>
+              <a href="/">Users</a>
+            </li>
+            <li>
+              <a href="/">Admin</a>
+            </li>
+            <li>
+              <button onClick={authContext.onLogout}>Logout</button>
+            </li>
+          </Fragment>
+        )}
+      </ul>
+    </nav>
   );
 };
 
