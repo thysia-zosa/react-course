@@ -1,14 +1,13 @@
 import ReactDOM from "react-dom";
 import styles from "./Modal.module.css";
-import { StrictMode, useContext } from "react";
-import CartContext from "../../../contexts/cart-context";
+import { StrictMode} from "react";
 
-const Modal = ({ children }) => {
+const Modal = ({ hideModal, children }) => {
   return ReactDOM.createPortal(
     <StrictMode>
       <div
         className={styles.backdrop}
-        onClick={useContext(CartContext).toggleCart}
+        onClick={hideModal}
       />
       <div className={styles.modal}>{children}</div>
     </StrictMode>,

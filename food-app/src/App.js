@@ -1,22 +1,26 @@
-import { Fragment, useContext } from "react";
+import { useState } from "react";
 import Header from "./components/Layout/Header";
 import MealsSummary from "./components/Layout/MealsSummary";
 import AvailableMeals from "./components/Meals/AvailableMeals";
 import Cart from "./components/Cart/Cart";
-import CartContext from "./contexts/cart-context";
+import { CartContextProvider } from "./contexts/CartProvider";
 
 function App() {
-  const cartContext = useContext(CartContext);
-  
+  const [isCartShown, setIsCartShown] = useState(false);
+
+  function toggleCart() {
+    setIsCartShown((prevValue) => !prevValue);
+  }
+
   return (
-    <Fragment>
-      {cartContext.isCartShown && <Cart />}
-      <Header />
+    <CartContextProvider>
+      {isCartShown && <Cart hideCart={toggleCart} />}
+      <Header showCart={toggleCart} />
       <main>
         <MealsSummary />
         <AvailableMeals />
       </main>
-    </Fragment>
+    </CartContextProvider>
   );
 }
 

@@ -4,26 +4,15 @@ import Modal from "../UI/Modal/Modal";
 import { useContext } from "react";
 import CartContext from "../../contexts/cart-context";
 
-const DUMMY_DATA = [
-  {
-    id: 1,
-    price: 22.59,
-    name: "Meal1",
-    amount: 5,
-  },
-  {
-    id: 2,
-    price: 12.69,
-    name: "Meal2",
-    amount: 2,
-  },
-];
+const Cart = ({ hideCart }) => {
+  const cartContext = useContext(CartContext);
 
-const Cart = ({ items = DUMMY_DATA }) => {
+  const items = cartContext.items;
+
   const total = items.reduce((a, b) => a + b.amount * b.price, 0).toFixed(2);
 
   return (
-    <Modal>
+    <Modal hideModal={hideCart}>
       <ul className={styles.cartItems}>
         {items.map((item) => (
           <CartItem
@@ -32,8 +21,8 @@ const Cart = ({ items = DUMMY_DATA }) => {
             price={item.price}
             name={item.name}
             amount={item.amount}
-            onRemove={() => {}}
-            onAdd={() => {}}
+            onRemove={() => cartContext.removeItem(item.id)}
+            onAdd={() => cartContext.addItem({...item, amount:1})}
           />
         ))}
       </ul>
@@ -42,10 +31,7 @@ const Cart = ({ items = DUMMY_DATA }) => {
         <span>${total}</span>
       </div>
       <div className={styles.actions}>
-        <button
-          className={styles.buttonAlt}
-          onClick={useContext(CartContext).toggleCart}
-        >
+        <button className={styles.buttonAlt} onClick={hideCart}>
           Close
         </button>
         <button

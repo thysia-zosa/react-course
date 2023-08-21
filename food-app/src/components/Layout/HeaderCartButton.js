@@ -3,14 +3,17 @@ import CartIcon from "./CartIcon";
 import { useContext } from "react";
 import CartContext from "../../contexts/cart-context";
 
-const HeaderCartButton = () => {
+const HeaderCartButton = ({ showCart }) => {
+  const cartContext = useContext(CartContext);
+  const itemCount = cartContext.items.reduce((a, b) => a + b.amount, 0);
+
   return (
-    <button className={styles.button} onClick={useContext(CartContext).toggleCart}>
+    <button className={styles.button} onClick={showCart}>
       <span className={styles.icon}>
         <CartIcon />
       </span>
       <span>Your Cart</span>
-      <span className={styles.badge}>0</span>
+      <span className={styles.badge}>{itemCount}</span>
     </button>
   );
 };
