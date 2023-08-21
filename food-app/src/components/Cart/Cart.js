@@ -36,7 +36,7 @@ const Cart = ({ hideCart }) => {
         </button>
         <button
           className={styles.button}
-          onClick={() => console.log("...Ordering")}
+          onClick={() => console.log("Ordering...")}
         >
           Order
         </button>
