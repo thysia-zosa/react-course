@@ -1,42 +1,35 @@
-import { useRef, useState } from "react";
+import { useState } from "react";
 
 const SimpleInput = (props) => {
-  const nameInputRef = useRef();
   const [enteredName, setEnteredName] = useState("");
-  const [enteredNameIsValid, setEnteredNameIsValid] = useState(false);
+  // const [enteredNameIsValid, setEnteredNameIsValid] = useState(false);
   const [enteredNameTouched, setEnteredNameTouched] = useState(false);
+
+  const enteredNameIsValid = enteredName.trim() !== "";
+  const nameInpusIsInvalid = !enteredNameIsValid && enteredNameTouched;
+
+  let formIsValid = enteredNameIsValid;
 
   const nameInputChangeHandler = (event) => {
     setEnteredName(event.target.value);
-
-    if (event.target.value.trim() !== "") {
-      return setEnteredNameIsValid(true);
-    }
   };
 
   const nameInputBlurHandler = (event) => {
     setEnteredNameTouched(true);
-
-    if (enteredName.trim() === "") {
-      return setEnteredNameIsValid(false);
-    }
   };
 
   const formSubmissionHandler = (event) => {
     event.preventDefault();
     setEnteredNameTouched(true);
 
-    if (enteredName.trim() === "") {
-      return setEnteredNameIsValid(false);
+    if (!enteredNameIsValid) {
+      return;
     }
-    setEnteredNameIsValid(true);
-
     console.log(enteredName);
-    const enteredValue = nameInputRef.current.value;
-    console.log(enteredValue);
+    // nameInputRef.current.value = ''; => NOT IDEAL; DON'T MANIPULATE THE DOM
+    setEnteredName("");
+    setEnteredNameTouched(false);
   };
-
-  const nameInpusIsInvalid = !enteredNameIsValid && enteredNameTouched;
 
   const nameInputClasses = `formControl ${nameInpusIsInvalid ? "invalid" : ""}`;
 
@@ -45,18 +38,18 @@ const SimpleInput = (props) => {
       <div className={nameInputClasses}>
         <label htmlFor="name">Your Name</label>
         <input
-          ref={nameInputRef}
           type="text"
           id="name"
           onChange={nameInputChangeHandler}
           onBlur={nameInputBlurHandler}
+          value={enteredName}
         />
         {nameInpusIsInvalid && (
           <p className="errorText">Name must not be empty.</p>
         )}
       </div>
       <div className="formActions">
-        <button>Submit</button>
+        <button disabled={!formIsValid}>Submit</button>
       </div>
     </form>
   );
