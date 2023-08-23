@@ -4,7 +4,6 @@ const useHttp = () => {
   const [error, setError] = useState(null);
 
   const sendRequest = useCallback(async (requestConfig, applyData) => {
-    console.log('fetching data')
     setIsLoading(true);
     setError(null);
 
@@ -15,7 +14,7 @@ const useHttp = () => {
         body: requestConfig.body ? JSON.stringify(requestConfig.body) : null,
       });
 
-      if (response.status !== 200) {
+      if (!response.ok) {
         throw new Error(`Request failed: ${response.status}`);
       }
 

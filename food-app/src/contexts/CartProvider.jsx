@@ -5,6 +5,7 @@ const defaultCartState = { items: [] };
 
 const kAdd = "ADD";
 const kRemove = "REMOVE";
+const kClear = "CLEAR";
 
 const cartReducer = (state, action) => {
   let updatedItems;
@@ -37,6 +38,7 @@ const cartReducer = (state, action) => {
         };
       }
       return { items: updatedItems };
+    case kClear:
     default:
       return defaultCartState;
   }
@@ -56,10 +58,15 @@ export const CartContextProvider = ({ children }) => {
     dispatchCartAction({ type: kRemove, id: id });
   }
 
+  function clearCartItems() {
+    dispatchCartAction({ type: kClear });
+  }
+
   const cartContext = {
     items: cartState.items,
     addItem: addCartItem,
     removeItem: removeCartItem,
+    clearCart: clearCartItems,
   };
 
   return (
