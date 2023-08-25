@@ -1,27 +1,27 @@
 // import { Component } from "react";
-import { counterActions } from "../store/counter";
+import { kDecrement, kIncrease, kIncrement, kToggle } from "../store";
 import classes from "./Counter.module.css";
 import { /* connect, */ useDispatch, useSelector } from "react-redux";
 
 const Counter = () => {
   const dispatch = useDispatch();
-  const counter = useSelector((state) => state.counter.counter);
-  const showCounter = useSelector((state) => state.counter.showCounter);
+  const counter = useSelector((state) => state.counter);
+  const showCounter = useSelector((state) => state.showCounter);
 
   const toggleCounterHandler = () => {
-    dispatch(counterActions.toggleCounter());
+    dispatch({ type: kToggle });
   };
 
   const incrementHandler = () => {
-    dispatch(counterActions.increment());
+    dispatch({ type: kIncrement });
   };
 
   const increaseHandler = () => {
-    dispatch(counterActions.increase(5)); // { type: SOME_UNIQUE_IDENTIFIER, payload: 10 }
+    dispatch({ type: kIncrease, amount: 5 });
   };
 
   const decrementHandler = () => {
-    dispatch(counterActions.decrement());
+    dispatch({ type: kDecrement });
   };
 
   return (
