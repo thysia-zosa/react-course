@@ -33,7 +33,10 @@ const router = createBrowserRouter([
       { path: "/", element: <HomePage /> },
       { path: "/products", element: <ProductsPage /> },
       // { path: "/products/product-1", element: <ProductDetailPage /> }, not an option for every product...
-      { path: "/products/:productId", element: <ProductDetailPage /> }, // this is dynamic with ':' after productId '/new' o.Ä is possible
+      
+      // this is dynamic with ':' after productId '/new' o.Ä is possible
+      // productId is just a placeholder
+      { path: "/products/:productId", element: <ProductDetailPage /> }, 
     ],
   },
 ]);
