@@ -42,6 +42,8 @@ const router = createBrowserRouter([
           {
             index: true,
             element: <EventsPage />,
+            // called when we start navigating,
+            // only renders component when completed
             loader: eventsLoader,
           },
           { path: "new", element: <NewEventPage /> },
