@@ -7,7 +7,7 @@ import EventDetailPage, {
 } from "./pages/EventDetail";
 import EventsPage, { loader as eventsLoader } from "./pages/Events";
 import HomePage from "./pages/Home";
-import NewEventPage from "./pages/NewEvent";
+import NewEventPage, { action as newEventAction } from "./pages/NewEvent";
 import ErrorPage from "./pages/Error";
 
 // Challenge / Exercise
@@ -50,7 +50,7 @@ const router = createBrowserRouter([
             // only renders component when completed
             loader: eventsLoader,
           },
-          { path: "new", element: <NewEventPage /> },
+          { path: "new", element: <NewEventPage />, action: newEventAction },
           {
             path: ":eventId",
             id: 'eventDetail',
