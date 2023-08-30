@@ -7,6 +7,7 @@ const DUMMY_EVENTS = [
   { id: "e3", title: "Event 3" },
   { id: "e4", title: "Event 4" },
   { id: "e5", title: "Event 5" },
+  { id: "new", title: "Event new" },
 ];
 
 const EventsPage = () => {
