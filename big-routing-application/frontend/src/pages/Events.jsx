@@ -21,7 +21,9 @@ export async function loader() {
   const response = await fetch("http://192.168.1.199:8080/events");
 
   if (!response.ok) {
-    throw new Error(`Could not fetch data: ${response.status}`);
+    throw new Response(JSON.stringify({ message: "Could not fetch events." }), {
+      status: 500,
+    });
   } else {
     return response;
   }
