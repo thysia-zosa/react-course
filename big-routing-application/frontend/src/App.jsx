@@ -8,8 +8,9 @@ import EventDetailPage, {
 } from "./pages/EventDetail";
 import EventsPage, { loader as eventsLoader } from "./pages/Events";
 import HomePage from "./pages/Home";
-import NewEventPage, { action as newEventAction } from "./pages/NewEvent";
+import NewEventPage from "./pages/NewEvent";
 import ErrorPage from "./pages/Error";
+import { action as manipulateEventAction } from "./components/EventForm";
 
 // Challenge / Exercise
 
@@ -51,7 +52,7 @@ const router = createBrowserRouter([
             // only renders component when completed
             loader: eventsLoader,
           },
-          { path: "new", element: <NewEventPage />, action: newEventAction },
+          { path: "new", element: <NewEventPage />, action: manipulateEventAction },
           {
             path: ":eventId",
             id: "eventDetail",
@@ -62,7 +63,7 @@ const router = createBrowserRouter([
                 element: <EventDetailPage />,
                 action: deleteEventAction,
               },
-              { path: "edit", element: <EditEventPage /> },
+              { path: "edit", element: <EditEventPage />, action: manipulateEventAction },
             ],
           },
         ],
