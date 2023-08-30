@@ -1,11 +1,11 @@
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
-import HomePage from "./pages/Home";
-import EventsPage from "./pages/Events";
-import NewEventPage from "./pages/NewEvent";
-import EventDetailPage from "./pages/EventDetail";
-import EditEventPage from "./pages/EditEvent";
-import RootLayout from "./layouts/Root";
 import EventLayout from "./layouts/Event";
+import RootLayout from "./layouts/Root";
+import EditEventPage from "./pages/EditEvent";
+import EventDetailPage from "./pages/EventDetail";
+import EventsPage from "./pages/Events";
+import HomePage from "./pages/Home";
+import NewEventPage from "./pages/NewEvent";
 
 // Challenge / Exercise
 
@@ -39,7 +39,20 @@ const router = createBrowserRouter([
         path: "events",
         element: <EventLayout />,
         children: [
-          { index: true, element: <EventsPage /> },
+          {
+            index: true,
+            element: <EventsPage />,
+            loader: async () => {
+              const response = await fetch("http://192.168.1.199:8080/events");
+
+              if (!response.ok) {
+                // ...
+              } else {
+                const responseData = await response.json();
+                return responseData.events;
+              }
+            },
+          },
           { path: "new", element: <NewEventPage /> },
           {
             path: ":eventId",
