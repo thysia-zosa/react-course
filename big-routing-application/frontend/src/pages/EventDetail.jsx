@@ -1,16 +1,41 @@
-import { json, redirect, useRouteLoaderData } from "react-router-dom";
+import {
+  Await,
+  defer,
+  json,
+  redirect,
+  useRouteLoaderData,
+} from "react-router-dom";
 import EventItem from "../components/EventItem";
+import EventsList from "../components/EventsList";
+import { Suspense } from "react";
 
 const EventDetailPage = () => {
-  const data = useRouteLoaderData("eventDetail");
+  // const data = useRouteLoaderData("eventDetail");
+  const { event, events } = useRouteLoaderData("eventDetail");
 
-  return <EventItem event={data.event} />;
+  return (
+    <>
+      <Suspense
+        fallback={<p style={{ textAlign: "center" }}>Loading event...</p>}
+      >
+        <Await resolve={event}>
+          {(loadedEvent) => <EventItem event={loadedEvent} />}
+        </Await>
+      </Suspense>
+      <Suspense
+        fallback={<p style={{ textAlign: "center" }}>Loading events...</p>}
+      >
+        <Await resolve={events}>
+          {(loadedEvents) => <EventsList events={loadedEvents} />}
+        </Await>
+      </Suspense>
+    </>
+  );
 };
 
 export default EventDetailPage;
 
-export async function loader({ request, params }) {
-  const id = params.eventId;
+async function loadEvent(id) {
   const response = await fetch("http://192.168.1.199:8080/events/" + id);
 
   if (!response.ok) {
@@ -20,7 +45,32 @@ export async function loader({ request, params }) {
     );
   }
 
-  return response;
+  const responseData = await response.json();
+  return responseData.event;
+  // return response;
+}
+
+async function loadEvents() {
+  // doesn't have to be this name
+  const response = await fetch("http://192.168.1.199:8080/events");
+
+  if (!response.ok) {
+    // throw new Response(JSON.stringify({ message: "Could not fetch events." }), {
+    //   status: 500,
+    // });
+
+    // With this, no need for JSON.parse in Error.jsx
+    throw json({ message: "Could not fetch events." }, { status: 500 });
+  } else {
+    // return response; // not working for defer
+    const responseData = await response.json();
+    return responseData.events;
+  }
+}
+
+export async function loader({ request, params }) {
+  const id = params.eventId;
+  return defer({ event: await loadEvent(id), events: loadEvents() });
 }
 
 // don't forget to add the loader to the router in App.jsx!
