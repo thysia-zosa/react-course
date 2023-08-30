@@ -3,7 +3,7 @@ import EventLayout from "./layouts/Event";
 import RootLayout from "./layouts/Root";
 import EditEventPage from "./pages/EditEvent";
 import EventDetailPage from "./pages/EventDetail";
-import EventsPage from "./pages/Events";
+import EventsPage, { loader as eventsLoader } from "./pages/Events";
 import HomePage from "./pages/Home";
 import NewEventPage from "./pages/NewEvent";
 
@@ -42,16 +42,7 @@ const router = createBrowserRouter([
           {
             index: true,
             element: <EventsPage />,
-            loader: async () => {
-              const response = await fetch("http://192.168.1.199:8080/events");
-
-              if (!response.ok) {
-                // ...
-              } else {
-                const responseData = await response.json();
-                return responseData.events;
-              }
-            },
+            loader: eventsLoader,
           },
           { path: "new", element: <NewEventPage /> },
           {
