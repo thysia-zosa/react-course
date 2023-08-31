@@ -1,7 +1,7 @@
 const { v4: generateId } = require('uuid');
 
 const { NotFoundError } = require('../util/errors');
-const {readData,writeData}=require('../util')
+const {readData,writeData}=require('./util')
 
 async function getAll() {
   const storedData = await readData();
