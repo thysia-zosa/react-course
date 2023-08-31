@@ -1,5 +1,11 @@
 import { Fragment } from "react";
-import { Form, Link, useSearchParams } from "react-router-dom";
+import {
+  Form,
+  Link,
+  useActionData,
+  useNavigation,
+  useSearchParams,
+} from "react-router-dom";
 import styles from "./EventForm.module.css";
 
 const AuthForm = () => {
@@ -9,13 +15,25 @@ const AuthForm = () => {
   //   setIsLogin((isCurrentLogin) => !isCurrentLogin);
   // };
 
+  const data = useActionData();
+  const navigation = useNavigation();
+
   const [searchParams /* , setSearchParams */] = useSearchParams();
   const isLogin = searchParams.get("mode") === "login";
+  const isSubmitting = navigation.state === "submitting";
 
   return (
     <Fragment>
       <Form method="post" className={styles.form}>
         <h1>{isLogin ? "Log in" : "Create a new user"}</h1>
+        {data && data.errors && (
+          <ul>
+            {Object.values(data.errors).map((error) => (
+              <li key={error}>{error}</li>
+            ))}
+          </ul>
+        )}
+        {data && data.message && <p>{data.message}</p>}
         <p>
           <label htmlFor="email">Email</label>
           <input type="email" name="email" id="email" required />
@@ -28,7 +46,9 @@ const AuthForm = () => {
           <Link to={`?mode=${isLogin ? "signup" : "login"}`}>
             {isLogin ? "Create new user" : "Login"}
           </Link>
-          <button>Save</button>
+          <button disabled={isSubmitting}>
+            {isSubmitting ? "Submitting..." : "Save"}
+          </button>
         </div>
       </Form>
     </Fragment>
