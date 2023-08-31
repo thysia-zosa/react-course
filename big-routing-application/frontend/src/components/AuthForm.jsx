@@ -1,13 +1,16 @@
-import { Fragment, useState } from "react";
-import { Form } from "react-router-dom";
-import styles from "./EventForm.module.jsx";
+import { Fragment } from "react";
+import { Form, Link, useSearchParams } from "react-router-dom";
+import styles from "./EventForm.module.css";
 
 const AuthForm = () => {
-  const [isLogin, setIsLogin] = useState(true);
+  // const [isLogin, setIsLogin] = useState(true);
 
-  const switchAuthHandler = () => {
-    setIsLogin((isCurrentLogin) => !isCurrentLogin);
-  };
+  // const switchAuthHandler = () => {
+  //   setIsLogin((isCurrentLogin) => !isCurrentLogin);
+  // };
+
+  const [searchParams /* , setSearchParams */] = useSearchParams();
+  const isLogin = searchParams.get("mode") === "login";
 
   return (
     <Fragment>
@@ -22,9 +25,9 @@ const AuthForm = () => {
           <input type="password" name="password" id="password" required />
         </p>
         <div className={styles.actions}>
-          <button type="button" onClick={switchAuthHandler}>
+          <Link to={`?mode=${isLogin ? "signup" : "login"}`}>
             {isLogin ? "Create new user" : "Login"}
-          </button>
+          </Link>
           <button>Save</button>
         </div>
       </Form>
