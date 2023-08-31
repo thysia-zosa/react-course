@@ -20,6 +20,7 @@
   display: flex;
   gap: 1rem;
   justify-content: flex-end;
+  align-items: center;
 }
 
 .actions button {
@@ -33,6 +34,12 @@
 }
 
 .actions button[type='button'] {
+  background-color: transparent;
+  color: var(--color-gray-300);
+}
+
+.actions a {
+  text-decoration: none;
   background-color: transparent;
   color: var(--color-gray-300);
 }

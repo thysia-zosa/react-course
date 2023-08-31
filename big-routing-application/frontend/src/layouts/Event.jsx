@@ -6,9 +6,7 @@ const EventLayout = () => {
   return (
     <Fragment>
       <EventsNavigation />
-      <main>
         <Outlet />
-      </main>
     </Fragment>
   );
 };
