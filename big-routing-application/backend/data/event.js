@@ -1,17 +1,7 @@
-const fs = require('node:fs/promises');
-
 const { v4: generateId } = require('uuid');
 
 const { NotFoundError } = require('../util/errors');
-
-async function readData() {
-  const data = await fs.readFile('events.json', 'utf8');
-  return JSON.parse(data);
-}
-
-async function writeData(data) {
-  await fs.writeFile('events.json', JSON.stringify(data));
-}
+const {readData,writeData}=require('../util')
 
 async function getAll() {
   const storedData = await readData();
