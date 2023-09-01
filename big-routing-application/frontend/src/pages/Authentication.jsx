@@ -38,5 +38,10 @@ export async function action({ request }) {
   }
 
   // soon: use token
+  const responseData = await response.json();
+  const token = responseData.token;
+
+  localStorage.setItem("token", token);
+
   return redirect("/");
 }
