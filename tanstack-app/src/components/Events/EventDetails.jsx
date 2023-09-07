@@ -1,13 +1,30 @@
-import { Link, Outlet, useParams } from "react-router-dom";
+import { Link, Outlet, useNavigate, useParams } from "react-router-dom";
 
 import Header from "../Header.jsx";
-import { useQuery } from "@tanstack/react-query";
-import { fetchEvent } from "../../utils/http.jsx";
+import { useMutation, useQuery } from "@tanstack/react-query";
+import { deleteEvent, fetchEvent, queryClient } from "../../utils/http.jsx";
 import LoadingIndicator from "../UI/LoadingIndicator.jsx";
 import ErrorBlock from "../UI/ErrorBlock.jsx";
 
 export default function EventDetails() {
   const params = useParams();
+  const navigate = useNavigate();
+
+  const { mutate /* isDeletePending, isDeleteError, deleteError */ } =
+    useMutation({
+      mutationFn: deleteEvent,
+      onSuccess: () => {
+        queryClient.invalidateQueries({
+          queryKey: ["events"],
+          refetchType: "none", // no immediate refetching, but only if data is needed
+        });
+        navigate("/events");
+      },
+    });
+
+  function handleDelete() {
+    mutate({ id: params.id });
+  }
 
   const { data, isPending, isError, error } = useQuery({
     queryKey: ["events", { id: params.id }],
@@ -36,18 +53,18 @@ export default function EventDetails() {
   }
 
   if (data) {
-    const formattedDate= new Date(data.date).toLocaleDateString('nl', {
-      day: 'numeric',
-      month: 'short',
-      year: 'numeric',
-    })
-    
+    const formattedDate = new Date(data.date).toLocaleDateString("nl", {
+      day: "numeric",
+      month: "short",
+      year: "numeric",
+    });
+
     content = (
       <>
         <header>
           <h1>{data.title}</h1>
           <nav>
-            <button>Delete</button>
+            <button onClick={handleDelete}>Delete</button>
             <Link to="edit">Edit</Link>
           </nav>
         </header>
