@@ -1,4 +1,5 @@
 import MeetupList from "../components/meetups/MeetupList";
+import Head from "../node_modules/next/head";
 
 const DUMMY_MEETUPS = [
   {
@@ -18,7 +19,15 @@ const DUMMY_MEETUPS = [
 ];
 
 const HomePage = (props) => {
-  return <MeetupList meetups={props.meetups} />;
+  return (
+    <>
+      <Head>
+        <title>React Meetups</title>
+        <meta name="description" content="Browse a huge list of highliy active React meetups!" />
+      </Head>
+      <MeetupList meetups={props.meetups} />
+    </>
+  );
 };
 
 // export async function getServerSideProps(context) {
@@ -37,9 +46,13 @@ const HomePage = (props) => {
 // prebuilding during build process
 export async function getStaticProps() {
   // fetch data from an api
+  const response = await fetch("http://localhost:3000/api/new-meetup");
+  const data = await response.json();
+  console.log(data);
+
   return {
     props: {
-      meetups: DUMMY_MEETUPS,
+      meetups: data.events,
     },
     revalidate: 86400,
   };

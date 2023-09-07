@@ -12,37 +12,45 @@ const MeetupDetailPage = (props) => {
 };
 
 export async function getStaticPaths() {
+  const response = await fetch("http://localhost:3000/api/new-meetup");
+  const data = await response.json();
+  console.log(data)
+
   return {
-    fallback: false,//contains all paths
-    // fallback: true, //may contain ohter paths
-    paths: [
-      {
-        params: {
-          meetupId: "m1",
-        },
-      },
-      {
-        params: {
-          meetupId: "m2",
-        },
-      },
-    ],
+    fallback: false, //contains all paths
+    // fallback: 'blocking', //may contain ohter paths
+    paths: data.events.map((event) => ({ params: { meetupId: event.id } })),
+    // [
+    //   {
+    //     params: {
+    //       meetupId: "m1",
+    //     },
+    //   },
+    //   {
+    //     params: {
+    //       meetupId: "m2",
+    //     },
+    //   },
+    // ],
   };
 }
 
 export async function getStaticProps(context) {
   const meetupId = context.params.meetupId;
   console.log(meetupId); // only in server console
+  const response = await fetch("http://localhost:3000/api/new-meetup");
+  const data = await response.json();
 
   return {
     props: {
-      meetupData: {
-        id: "m2",
-        title: "A second Meetup",
-        image: "https://florencetips.nl/images/florencetips.jpg",
-        address: "Something else",
-        description: "This is a second meetup!",
-      },
+      meetupData: data.events.find((event) => event.id === meetupId),
+      // {
+      //   id: "m2",
+      //   title: "A second Meetup",
+      //   image: "https://florencetips.nl/images/florencetips.jpg",
+      //   address: "Something else",
+      //   description: "This is a second meetup!",
+      // },
     },
   };
 }
