@@ -1,24 +1,47 @@
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 
-import cityImg from '../assets/city.jpg';
-import heroImg from '../assets/hero.png';
+import cityImg from "../assets/city.jpg";
+import heroImg from "../assets/hero.png";
+import { motion, useScroll, useTransform } from "framer-motion";
 
 export default function WelcomePage() {
+  const { scrollY } = useScroll();
+
+  const cityY = useTransform(scrollY, [0, 200], [0, -100]);
+  const cityOpacity = useTransform(
+    scrollY,
+    [0, 200, 300, 500],
+    [1, 0.5, 0.5, 0]
+  );
+  const heroY = useTransform(scrollY, [0, 200], [0, -150]);
+  const heroOpacity = useTransform(scrollY, [0, 300, 500], [1, 1, 0]);
+  const textScale = useTransform(scrollY, [0, 300], [1, 1.5]);
+  const textY = useTransform(scrollY, [0, 200, 300, 500], [0, 50, 50, 300]);
+
   return (
     <>
       <header id="welcome-header">
-        <div id="welcome-header-content">
+        <motion.div
+          id="welcome-header-content"
+          style={{ scale: textScale, y: textY }}
+        >
           <h1>Ready for a challenge?</h1>
           <Link id="cta-link" to="/challenges">
             Get Started
           </Link>
-        </div>
-        <img
+        </motion.div>
+        <motion.img
+          style={{ opacity: cityOpacity, y: cityY }}
           src={cityImg}
           alt="A city skyline touched by sunlight"
           id="city-image"
         />
-        <img src={heroImg} alt="A superhero wearing a cape" id="hero-image" />
+        <motion.img
+          style={{ opacity: heroOpacity, y: heroY }}
+          src={heroImg}
+          alt="A superhero wearing a cape"
+          id="hero-image"
+        />
       </header>
       <main id="welcome-content">
         <section>
