@@ -16,6 +16,7 @@ const AuthForm = () => {
   // };
 
   const data = useActionData();
+  console.log('actionData', data)
   const navigation = useNavigation();
 
   const [searchParams /* , setSearchParams */] = useSearchParams();
