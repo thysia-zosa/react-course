@@ -1,0 +1,13 @@
+.userForm {
+  display: flex;
+  flex-direction: column;
+}
+
+.userForm label {
+  margin: 0.2rem 0;
+  font-weight: bold;
+}
+
+.userForm input {
+  margin: 0.2rem 0;
+}
